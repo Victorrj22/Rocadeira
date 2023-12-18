@@ -19,6 +19,7 @@ namespace Rocadeira.Entities.Bradesco
                 MainProcess.ManipulateFiles(fileName, foldersTuple.Item1, newBatchPath, sourcePath, foldersTuple.Item2);
 
                 MainProcess.WriteCSV(fileName, foldersTuple.Item2);
+                
                 //MainProcess.EditingWorksheet(fileName, foldersTuple.Item2);
 
                 //Reader.ReaderFile(sourcePath);
