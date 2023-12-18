@@ -5,10 +5,11 @@ using Rocadeira.Entities.Randstad;
 using Rocadeira.Enums;
 using Rocadeira.Interface;
 using Rocadeira.Utilities;
+using Rocadeira;
 
 namespace Rocadeira
 {
-    class Program
+    class Program 
     {
         static async Task Main(string[] args)
         {
@@ -41,14 +42,14 @@ namespace Rocadeira
                     break;
             }
 
-            static async Task ExecuteAsyncTasks()
+            static async Task ExecuteAsyncTasks(string fileName)
             {
                 var query = new ConsultaContextExtensions();
-                var tokenAcesso = await query.CreateToken("Bradesco RH Lote 2023-12-07 (114)");
+                var tokenAcesso = await query.CreateToken("Bradesco RH Lote " + fileName);
                 await query.InsertQuery(tokenAcesso.TokenAcessoId, "lote_20231207");
             }
             
-            await ExecuteAsyncTasks();
+            await ExecuteAsyncTasks(MainProcess.FileName);
             
             
             
