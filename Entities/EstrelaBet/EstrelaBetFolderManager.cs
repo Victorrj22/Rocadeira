@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ClosedXML.Excel;
-using EstudoAutomacaoLote.Utilities;
+﻿using ClosedXML.Excel;
+using Rocadeira.Interface;
 
-namespace EstudoAutomacaoLote.Entities.EstrelaBet
+namespace Rocadeira.Entities.EstrelaBet
 {
     public class EstrelaBetFolderManager : IFolderManager
     {

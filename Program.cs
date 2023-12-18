@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EstudoAutomacaoLote.Entities.BetNacional;
-using EstudoAutomacaoLote.Entities.Bradesco;
-using EstudoAutomacaoLote.Entities.EstrelaBet;
-using EstudoAutomacaoLote.Entities.Randstad;
-using EstudoAutomacaoLote.Enums;
-using EstudoAutomacaoLote.Utilities;
+﻿using Rocadeira.Entities.BetNacional;
+using Rocadeira.Entities.Bradesco;
+using Rocadeira.Entities.EstrelaBet;
+using Rocadeira.Entities.Randstad;
+using Rocadeira.Enums;
+using Rocadeira.Interface;
+using Rocadeira.Utilities;
 
-namespace EstudoAutomacaoLote
+namespace Rocadeira
 {
     class Program
     {
@@ -46,8 +44,8 @@ namespace EstudoAutomacaoLote
             static async Task ExecuteAsyncTasks()
             {
                 var query = new ConsultaContextExtensions();
-                await query.CreateToken("Bradesco RH Lote 2023-12-07 (114)");
-                await query.InsertQuery(1, "lote_20231207");
+                var tokenAcesso = await query.CreateToken("Bradesco RH Lote 2023-12-07 (114)");
+                await query.InsertQuery(tokenAcesso.TokenAcessoId, "lote_20231207");
             }
             
             await ExecuteAsyncTasks();

@@ -1,21 +1,27 @@
-﻿using Npgsql;
+﻿using Rocadeira;
+using Npgsql;
 
 public class ConsultaContextExtensions
 {
     private NpgsqlDataSource _dataSource =
         NpgsqlDataSource.Create("Host=localhost;Port=5430;Database=rocadeira;Username=postgres;Password=password");
 
-    public async Task CreateToken(string tokenName)
+    public async Task<TokenAcesso> CreateToken(string tokenName)
     {
         await using var connection = await _dataSource.OpenConnectionAsync();
 
         var query =
             "INSERT INTO public.token_acesso (cliente_id, token, acesso_total, incluido_em, incluido_por, name, key_type) " +
-            "VALUES (1631, translate(uuid_generate_v4()::TEXT, '{{}}-', ''), true, now(), 0, @tokenName, 1)";
+            "VALUES (1631, translate(uuid_generate_v4()::TEXT, '{{}}-', ''), true, now(), 0, @tokenName, 1)" +
+            "RETURNING token_acesso_id;";
 
         await using var command = new NpgsqlCommand(query, connection);
         command.Parameters.AddWithValue("tokenName", tokenName);
-        await command.ExecuteNonQueryAsync();
+
+        var tokenAcesso = new TokenAcesso();
+        tokenAcesso.TokenAcessoId = (int)await command.ExecuteScalarAsync();
+
+        return tokenAcesso;
     }
 
     public async Task InsertQuery(int token, string tabela)

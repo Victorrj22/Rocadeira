@@ -1,7 +1,7 @@
 ﻿using ClosedXML.Excel;
-using EstudoAutomacaoLote.Utilities;
+using Rocadeira.Interface;
 
-namespace EstudoAutomacaoLote.Entities.BetNacional
+namespace Rocadeira.Entities.BetNacional
 {
     public class BetNacionalFolderManager : IFolderManager
     {

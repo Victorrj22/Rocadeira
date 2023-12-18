@@ -25,3 +25,4 @@ C:\Users\JoãoVictorSoaresJord\Desktop\Roçadeira\Rocadeira\obj\Debug\net8.0\ref
 C:\Users\JoãoVictorSoaresJord\Desktop\Roçadeira\Rocadeira\obj\Debug\net8.0\Rocadeira.pdb
 C:\Users\JoãoVictorSoaresJord\Desktop\Roçadeira\Rocadeira\obj\Debug\net8.0\Rocadeira.genruntimeconfig.cache
 C:\Users\JoãoVictorSoaresJord\Desktop\Roçadeira\Rocadeira\obj\Debug\net8.0\ref\Rocadeira.dll
+C:\Users\JoãoVictorSoaresJord\Desktop\Roçadeira\Rocadeira\obj\Debug\net8.0\Rocadeira.sourcelink.json

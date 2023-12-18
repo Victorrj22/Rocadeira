@@ -2,9 +2,10 @@
 using CsvHelper;
 using System.Globalization;
 using System.Text;
-using EstudoAutomacaoLote.Utilities;
+using Rocadeira.Entities;
+using Rocadeira.Utilities;
 
-namespace EstudoAutomacaoLote
+namespace Rocadeira
 {
     class MainProcess
     {

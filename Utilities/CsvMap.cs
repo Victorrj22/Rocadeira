@@ -1,8 +1,9 @@
 ﻿using CsvHelper.Configuration;
 using System.Globalization;
+using Rocadeira.Entities;
 
 
-namespace EstudoAutomacaoLote.Utilities
+namespace Rocadeira.Utilities
 {
     public sealed class CsvMap : ClassMap<Person>
     {

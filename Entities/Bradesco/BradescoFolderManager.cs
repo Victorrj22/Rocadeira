@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ClosedXML.Excel;
-using EstudoAutomacaoLote.Utilities;
+﻿using Rocadeira.Interface;
 
-namespace EstudoAutomacaoLote.Entities.Bradesco
+namespace Rocadeira.Entities.Bradesco
 {
     public class BradescoFolderManager : IFolderManager
     {

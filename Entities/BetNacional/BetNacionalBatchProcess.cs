@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EstudoAutomacaoLote.Utilities;
+﻿using Rocadeira.Utilities;
 
-namespace EstudoAutomacaoLote.Entities.BetNacional
+namespace Rocadeira.Entities.BetNacional
 {
     class BetNacionalBatchProcess
     {

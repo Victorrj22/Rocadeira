@@ -1,9 +1,4 @@
-﻿using ClosedXML.Excel;
-using System;
-using System.Collections.Generic;
-using EstudoAutomacaoLote.Enums;
-
-namespace EstudoAutomacaoLote.Utilities
+﻿namespace Rocadeira.Interface
 {
     public interface IFolderManager
     {

@@ -1,7 +1,7 @@
 ﻿using ClosedXML.Excel;
-using EstudoAutomacaoLote.Utilities;
+using Rocadeira.Interface;
 
-namespace EstudoAutomacaoLote.Entities.Randstad
+namespace Rocadeira.Entities.Randstad
 {
     public class RandstadFolderManager : IFolderManager
     {
