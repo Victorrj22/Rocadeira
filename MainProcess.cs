@@ -9,6 +9,13 @@ namespace Rocadeira
 {
     class MainProcess
     {
+        public static string FileName { get; private set; }
+
+        /// <summary>
+        /// Pede ao usuário qual será a empresa para a operação.
+        /// Retorna o id da operação.
+        /// </summary>
+        /// <returns></returns>
         public static int ReadOperationId()
         {
             Console.WriteLine("Digite o número da operação de acordo com a empresa:");
@@ -21,8 +28,6 @@ namespace Rocadeira
             return opId;
         }
 
-        public static string FileName { get; private set; }
-        public static string BatchName { get; private set; }
         /// <summary>
         /// Cria as pastas do novo diretório de Lote
         /// </summary>
@@ -70,7 +75,6 @@ namespace Rocadeira
             else throw new Exception("Este lote já existe. Tente com outro nome.");
 
             FileName = fileName;
-            BatchName = batchName;
             return Tuple.Create(batchName, folderEntrada, folderSaida);
         }
 
@@ -103,7 +107,7 @@ namespace Rocadeira
             
             for (int i = 0; i < originFileData.Count(); i++)
             {
-                PopulateLine(ws, i + 2, originFileData[i]);
+                PopulateLineExcel(ws, i + 2, originFileData[i]);
             }
 
             WriteHeader(ws);
@@ -113,28 +117,40 @@ namespace Rocadeira
 
         }
 
+        /// <summary>
+        ///Pega os dados da lista Person, que vieram da planilha original, e cria o CSV novo
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="folderEntrada"></param>
         public static void WriteCSV(string fileName, string folderEntrada)
         {
             var originFileData = Reader.ReaderFile(folderEntrada, fileName);
 
-            using (var writer = new StreamWriter(folderEntrada + @"\copy.csv",false, Encoding.UTF8))
+            using (var writer = new StreamWriter(folderEntrada + $@"\{fileName} copy.csv", false, Encoding.UTF8))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.Context.RegisterClassMap<CsvMap>();
                 csv.WriteHeader<Person>();
                 csv.NextRecord();
-                foreach (var data in originFileData)
-                {
-                    data.linha = "1";
-                    csv.WriteRecord(data);
-                    csv.NextRecord();
-                }
-
-                //csv.WriteRecords(originFileData);
+                PopulateLineCsv(originFileData);
+                csv.WriteRecords(originFileData);
             }
         }
 
-        static void PopulateLine(IXLWorksheet ws, int line, Person person)
+        /// <summary>
+        /// Preenche a coluna "linha" com os números até o fim da tabela
+        /// </summary>
+        /// <param name="records"></param>
+        static void PopulateLineCsv(List<Person> records)
+        {
+            int i = 1;
+            foreach (var record in records)
+            {
+                record.linha = i.ToString();
+                i++;
+            }
+        }
+        static void PopulateLineExcel(IXLWorksheet ws, int line, Person person)
         {
             // dados de entrada
             ws.Cells($"A{line}").Value = person.linha;
@@ -153,7 +169,6 @@ namespace Rocadeira
             ws.Cell("E1").Value = "nascimento";
             ws.Cell("F1").Value = "email";
         }
-
         public static void PopulateColumnLinha(IXLWorksheet ws)
         {
             for (int i = 2; i < ws.LastRowUsed().RowNumber()+1; i++)
@@ -161,7 +176,6 @@ namespace Rocadeira
                 ws.Cell($"A{i}").Value = i-1;
             }
         }
-
         static string GetCSVFile(string path)
         {
             var csvFileName = Directory.GetFiles(path, "*.csv").FirstOrDefault();
@@ -172,7 +186,6 @@ namespace Rocadeira
             csvFileName = csvFileName.Split(separator)[4];
             return csvFileName;
         }
-
         static string GetModelFile(string path)
         {
             var modelFile = Directory.GetFiles(path, "Modelo.xlsx").FirstOrDefault();
