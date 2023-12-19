@@ -10,6 +10,7 @@ namespace Rocadeira
     class MainProcess
     {
         public static string FileName { get; private set; }
+        public static string BatchName { get; private set; }
 
         /// <summary>
         /// Pede ao usuário qual será a empresa para a operação.
@@ -75,6 +76,7 @@ namespace Rocadeira
             else throw new Exception("Este lote já existe. Tente com outro nome.");
 
             FileName = fileName;
+            BatchName = batchName;
             return Tuple.Create(batchName, folderEntrada, folderSaida);
         }
 

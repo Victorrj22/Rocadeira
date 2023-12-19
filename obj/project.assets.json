@@ -3427,19 +3427,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LucasHergessel\\.nuget\\packages\\": {}
+    "C:\\Users\\JoãoVictorSoaresJord\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LucasHergessel\\Desktop\\Exato\\Projetos\\Rocadeira\\Rocadeira.csproj",
+      "projectUniqueName": "C:\\Users\\JoãoVictorSoaresJord\\Desktop\\Roçadeira\\Rocadeira\\Rocadeira.csproj",
       "projectName": "Rocadeira",
-      "projectPath": "C:\\Users\\LucasHergessel\\Desktop\\Exato\\Projetos\\Rocadeira\\Rocadeira.csproj",
-      "packagesPath": "C:\\Users\\LucasHergessel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LucasHergessel\\Desktop\\Exato\\Projetos\\Rocadeira\\obj\\",
+      "projectPath": "C:\\Users\\JoãoVictorSoaresJord\\Desktop\\Roçadeira\\Rocadeira\\Rocadeira.csproj",
+      "packagesPath": "C:\\Users\\JoãoVictorSoaresJord\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JoãoVictorSoaresJord\\Desktop\\Roçadeira\\Rocadeira\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LucasHergessel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\JoãoVictorSoaresJord\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

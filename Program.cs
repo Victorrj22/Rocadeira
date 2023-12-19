@@ -50,7 +50,7 @@ namespace Rocadeira
             {
                 var query = new ConsultaContextExtensions();
                 var nomeTabela = "lote_20231209";
-                await query.InsertCsv(@"C:\Users\JoãoVictorSoaresJord\OneDrive - Exato Digital\Development\Clientes\Bradesco\RH\Lotes\" + batchName + @"\Entrada_Bradesco\copy.csv", "customer_bradesco_rh_jobs", nomeTabela);
+                await query.InsertCsv(@"C:\Users\JoãoVictorSoaresJord\OneDrive - Exato Digital\Development\Clientes\Bradesco\RH\Lotes\" + batchName + @"\Entrada_Bradesco\" + fileName + " copy.csv", "customer_bradesco_rh_jobs", nomeTabela);
                 var tokenAcesso = await query.CreateToken("Bradesco RH Lote " + fileName);
                 await query.InsertQuery(tokenAcesso.TokenAcessoId, nomeTabela);
             }
