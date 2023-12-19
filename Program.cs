@@ -1,4 +1,5 @@
-﻿using Rocadeira.Entities.BetNacional;
+﻿using Npgsql;
+using Rocadeira.Entities.BetNacional;
 using Rocadeira.Entities.Bradesco;
 using Rocadeira.Entities.EstrelaBet;
 using Rocadeira.Entities.Randstad;
@@ -11,6 +12,8 @@ namespace Rocadeira
 {
     class Program 
     {
+        
+        
         static async Task Main(string[] args)
         {
             var companyFolderCreators = new Dictionary<CompaniesEnum, IFolderManager>
@@ -42,14 +45,17 @@ namespace Rocadeira
                     break;
             }
 
-            static async Task ExecuteAsyncTasks(string fileName)
+            
+            static async Task ExecuteAsyncTasks(string fileName, string batchName)
             {
                 var query = new ConsultaContextExtensions();
+                var nomeTabela = "lote_20231209";
+                await query.InsertCsv(@"C:\Users\JoãoVictorSoaresJord\OneDrive - Exato Digital\Development\Clientes\Bradesco\RH\Lotes\" + batchName + @"\Entrada_Bradesco\copy.csv", "customer_bradesco_rh_jobs", nomeTabela);
                 var tokenAcesso = await query.CreateToken("Bradesco RH Lote " + fileName);
-                await query.InsertQuery(tokenAcesso.TokenAcessoId, "lote_20231207");
+                await query.InsertQuery(tokenAcesso.TokenAcessoId, nomeTabela);
             }
             
-            await ExecuteAsyncTasks(MainProcess.FileName);
+            await ExecuteAsyncTasks(MainProcess.FileName, MainProcess.BatchName);
             
             
             

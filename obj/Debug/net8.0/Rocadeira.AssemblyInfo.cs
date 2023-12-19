@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Rocadeira")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d80deec8838da9803af8daf5d9af57053f38a7e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c516873f406b393c9e1ea1fb366a65c53d1e03a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Rocadeira")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Rocadeira")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

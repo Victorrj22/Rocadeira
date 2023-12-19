@@ -1,10 +1,114 @@
-﻿using Rocadeira;
+﻿using System.Data;
+using System.Globalization;
+using Rocadeira;
 using Npgsql;
+using NpgsqlTypes;
 
 public class ConsultaContextExtensions
 {
-    private NpgsqlDataSource _dataSource =
+    public NpgsqlDataSource _dataSource =
         NpgsqlDataSource.Create("Host=localhost;Port=5430;Database=rocadeira;Username=postgres;Password=password");
+
+    public async Task InsertCsv(string csvFilePath, string schemaName, string tableName)
+    {
+        await using var connection = await _dataSource.OpenConnectionAsync();
+
+        // cria a tabela com base nas colunas do CSV
+        await CreateTableFromCsv(connection, csvFilePath, schemaName, tableName);
+        await InsertDataFromCsv(connection, csvFilePath, schemaName, tableName);
+    }
+
+    private async Task CreateTableFromCsv(NpgsqlConnection connection, string filePath, string schemaName,
+        string tableName)
+    {
+        try
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                string[] headers = sr.ReadLine().Split(',');
+
+                // Construir a declaração CREATE TABLE
+                var createTableQuery = $"CREATE TABLE {schemaName}.{tableName} (id SERIAL PRIMARY KEY, ";
+
+                foreach (string header in headers)
+                {
+                    createTableQuery += $"{header} TEXT, ";
+                }
+
+                createTableQuery = createTableQuery.TrimEnd(',', ' ') + ");";
+
+                // Executar a declaração CREATE TABLE
+                await using (var createTableCommand = new NpgsqlCommand(createTableQuery, connection))
+                {
+                    await createTableCommand.ExecuteNonQueryAsync();
+                }
+
+                Console.WriteLine($"Tabela {schemaName}.{tableName} criada com sucesso!");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ocorreu um erro durante a criação da tabela: {ex.Message}");
+        }
+    }
+
+    private async Task InsertDataFromCsv(NpgsqlConnection connection, string filePath, string schemaName,
+    string tableName)
+{
+    try
+    {
+        using (StreamReader sr = new StreamReader(filePath))
+        {
+            // Pular a linha de cabeçalho
+            string[] headers = sr.ReadLine().Split(',');
+
+            // Construir a declaração INSERT
+            var insertDataQuery = $"INSERT INTO {schemaName}.{tableName} (";
+            insertDataQuery += string.Join(", ", headers) + ") VALUES ";
+
+            // ID inicial
+            int currentId = 1;
+
+            // Ler as linhas do CSV e construir os valores para o INSERT
+            while (!sr.EndOfStream)
+            {
+                string[] rows = sr.ReadLine().Split(',');
+
+                // Converter a data para o formato aceito pelo PostgreSQL (YYYY-MM-DD)
+                string formattedDate = DateTime.ParseExact(rows[4], "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                    .ToString("yyyy-MM-dd");
+
+                // Substituir a data original pela data formatada diretamente na string SQL
+                rows[4] = formattedDate;
+
+                // Adicionar a linha à consulta
+                insertDataQuery +=
+                    $"({currentId}, '{string.Join("', '", rows.Skip(1).Take(9))}'), ";
+
+                // Incrementar o ID
+                currentId++;
+            }
+
+            // Remover a vírgula extra no final e adicionar ponto e vírgula
+            insertDataQuery = insertDataQuery.TrimEnd(',', ' ') + ";";
+
+            // Executar a declaração INSERT
+            await using (var insertDataCommand = new NpgsqlCommand(insertDataQuery, connection))
+            {
+                await insertDataCommand.ExecuteNonQueryAsync();
+            }
+
+            Console.WriteLine($"Dados do CSV inseridos com sucesso na tabela {schemaName}.{tableName}!");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ocorreu um erro durante a inserção dos dados do CSV: {ex.Message}");
+    }
+}
+
+
+
 
     public async Task<TokenAcesso> CreateToken(string tokenName)
     {

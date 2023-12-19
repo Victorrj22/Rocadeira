@@ -22,6 +22,7 @@ namespace Rocadeira
         }
 
         public static string FileName { get; private set; }
+        public static string BatchName { get; private set; }
         /// <summary>
         /// Cria as pastas do novo diretório de Lote
         /// </summary>
@@ -69,6 +70,7 @@ namespace Rocadeira
             else throw new Exception("Este lote já existe. Tente com outro nome.");
 
             FileName = fileName;
+            BatchName = batchName;
             return Tuple.Create(batchName, folderEntrada, folderSaida);
         }
 
